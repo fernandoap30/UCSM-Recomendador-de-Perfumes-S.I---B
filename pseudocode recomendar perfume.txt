@@ -1,0 +1,243 @@
+INICIO 
+
+familias <- { 
+
+    "citrica": ["limon", "naranja", "bergamota"], 
+
+    "floral": ["jazmin", "rosa", "geranio"], 
+
+    "amaderada": ["sandalo", "cedro", "abedul"], 
+
+    "fougere": ["salvia", "lavanda", "galbano"], 
+
+    "chipre": ["bergamota", "sandalo", "rosa"], 
+
+    "oriental": ["canuela", "nuez", "vainilla"], 
+
+    "gourmand": ["vainilla", "chocolate", "caramelo"] 
+
+} 
+
+  
+
+tiposPerfume <- { 
+
+    "eau fraiche": {"concentracion": "3-5%", "duracion": "2-3 horas"}, 
+
+    "eau de toilette": {"concentracion": "12-15%", "duracion": "4-7 horas"}, 
+
+    "eau de parfum": {"concentracion": "17-20%", "duracion": "8-10 horas"}, 
+
+    "extracto o parfum": {"concentracion": "30-40%", "duracion": "hasta 24 horas"} 
+
+} 
+
+  
+
+perfumes <- { 
+
+    "citrica": { 
+
+        "eau fraiche": "Lemon Breeze", 
+
+        "eau de toilette": "Citrus Splash", 
+
+        "eau de parfum": "Golden Zest", 
+
+        "extracto o parfum": "Citrus Intense" 
+
+    }, 
+
+    "floral": { 
+
+        "eau fraiche": "Petal Mist", 
+
+        "eau de toilette": "Rose Charm", 
+
+        "eau de parfum": "Floral Elegance", 
+
+        "extracto o parfum": "Jasmine Bloom" 
+
+    }, 
+
+    "amaderada": { 
+
+        "eau fraiche": "Wood Whisper", 
+
+        "eau de toilette": "Cedar Vibe", 
+
+        "eau de parfum": "Forest Spirit", 
+
+        "extracto o parfum": "Deep Woods" 
+
+    }, 
+
+    "fougere": { 
+
+        "eau fraiche": "Fresh Herb", 
+
+        "eau de toilette": "Green Vibe", 
+
+        "eau de parfum": "Herbal Essence", 
+
+        "extracto o parfum": "Lavender Night" 
+
+    }, 
+
+    "chipre": { 
+
+        "eau fraiche": "Soft Chypre", 
+
+        "eau de toilette": "Chypre Day", 
+
+        "eau de parfum": "Chypre Queen", 
+
+        "extracto o parfum": "Chypre Royal" 
+
+    }, 
+
+    "oriental": { 
+
+        "eau fraiche": "Spice Light", 
+
+        "eau de toilette": "Orient Rush", 
+
+        "eau de parfum": "Mystic Orient", 
+
+        "extracto o parfum": "Oriental Night" 
+
+    }, 
+
+    "gourmand": { 
+
+        "eau fraiche": "Sweet Whisper", 
+
+        "eau de toilette": "Choco Kiss", 
+
+        "eau de parfum": "Candy Love", 
+
+        "extracto o parfum": "Vanilla Dream" 
+
+    } 
+
+} 
+
+ 
+
+imprimir "Bienvenido al recomendador de perfumes." 
+
+  
+
+gustosCliente <- lista vacía 
+
+  
+
+REPETIR 
+
+    imprimir "¿Te gusta el olor a (limon, rosa, chocolate, etc)? Escribe 'ninguno' para terminar." 
+
+    leer respuesta 
+
+    SI respuesta ≠ "ninguno" ENTONCES 
+
+        agregar respuesta a gustosCliente 
+
+    FIN SI 
+
+HASTA que respuesta = "ninguno" 
+
+  
+
+familiaRecomendada <- "" 
+
+maxCoincidencias <- 0 
+
+  
+
+PARA cada familia en familias 
+
+    coincidencias <- contar cuántos olores de gustosCliente están en familias[familia] 
+
+    SI coincidencias > maxCoincidencias ENTONCES 
+
+        maxCoincidencias <- coincidencias 
+
+        familiaRecomendada <- familia 
+
+    FIN SI 
+
+FIN PARA 
+
+  
+
+SI familiaRecomendada = "" ENTONCES 
+
+    imprimir "No se pudo identificar una familia de perfume basada en tus gustos." 
+
+    TERMINAR PROGRAMA 
+
+FIN SI 
+
+  
+
+imprimir "La familia de perfume que más se adapta a ti es: " + familiaRecomendada 
+
+  
+
+imprimir "¿Prefieres una duración corta, media o larga?" 
+
+leer duracionDeseada 
+
+  
+
+tipoRecomendado <- "" 
+
+  
+
+SI duracionDeseada = "corta" ENTONCES 
+
+    tipoRecomendado <- "eau fraiche" 
+
+SINO SI duracionDeseada = "media" ENTONCES 
+
+    tipoRecomendado <- "eau de toilette" 
+
+SINO SI duracionDeseada = "larga" ENTONCES 
+
+    imprimir "¿Qué nivel de concentración prefieres? (media, alta, muy alta)" 
+
+    leer concentracionDeseada 
+
+  
+
+    SI concentracionDeseada = "media" ENTONCES 
+
+        tipoRecomendado <- "eau de parfum" 
+
+    SINO SI concentracionDeseada = "alta" O concentracionDeseada = "muy alta" ENTONCES 
+
+        tipoRecomendado <- "extracto o parfum" 
+
+    FIN SI 
+
+FIN SI 
+
+  
+
+perfumeFinal <- perfumes[familiaRecomendada][tipoRecomendado] 
+
+  
+
+imprimir "Te recomendamos el perfume: " + perfumeFinal 
+
+imprimir "Familia: " + familiaRecomendada 
+
+imprimir "Tipo: " + tipoRecomendado 
+
+imprimir "Concentración: " + tiposPerfume[tipoRecomendado]["concentracion"] 
+
+imprimir "Duración: " + tiposPerfume[tipoRecomendado]["duracion"] 
+
+  
+
+FIN 
